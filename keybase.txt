@@ -1,0 +1,57 @@
+==================================================================
+https://keybase.io/yanuehara
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://yanuehara.github.io
+  * I am yanuehara (https://keybase.io/yanuehara) on keybase.
+  * I have a public key ASDBQJ1cy4dSC9XbO2hh9pIULbGpa6MGldcC5Xh1pnJgDwo
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "010139bf2110f6cdf52925e99e83de1016f28d54b254ecc62ac31da7b1398d8cceb70a",
+      "host": "keybase.io",
+      "kid": "0120c1409d5ccb87520bd5db3b6861f692142db1a96ba30695d702e57875a672600f0a",
+      "uid": "e649633163e5f686dd1af68df21ddf19",
+      "username": "yanuehara"
+    },
+    "merkle_root": {
+      "ctime": 1569508364,
+      "hash": "dae670ba746a4801f76050123444d5086670608d861895acd379d0a3ab5725dcec196adc0ac7c140d3c28fec257342e092b4c696f46ff6bd46f99de18ea6364d",
+      "hash_meta": "70a63a42333270c9b53a28c217aa37c044beba060c56719a6fa66c90d5850472",
+      "seqno": 7755241
+    },
+    "service": {
+      "entropy": "ex6FlJzxfwOhkjH/79gRQhN1",
+      "hostname": "yanuehara.github.io",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 2
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "4.4.1"
+  },
+  "ctime": 1569508392,
+  "expire_in": 504576000,
+  "prev": "de98cef49029735f79e8e7a77c70ea12e681e0e7d52f4845910c46f27e478883",
+  "seqno": 31,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEgwUCdXMuHUgvV2ztoYfaSFC2xqWujBpXXAuV4daZyYA8Kp3BheWxvYWTESpcCH8Qg3pjO9JApc1956OenfHDqEuaB4OfVL0hFkQxG8n5HiIPEIOmPSjUj4rmCMR5+ukgOttoAd47WUuN/c6L9TCU7lkttAgHCo3NpZ8RASfWPxgQ974jF7r2qGJwkmTP0eZ5uwWiQwQ0lHOlvroeOKEXPbj8iUg9//G9aItk7ubHGwZLJInIA3S4j/ojRDqhzaWdfdHlwZSCkaGFzaIKkdHlwZQildmFsdWXEIGhHCevDunrkkJpodYhUf/svWNyK41UP6lJl/nOlEz0ro3RhZ80CAqd2ZXJzaW9uAQ==
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/yanuehara
+
+==================================================================
+
