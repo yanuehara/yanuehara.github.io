@@ -8,8 +8,8 @@
 <link rel=preload as=style href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap">
 <link rel=stylesheet href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap" media=print onload="this.media='all'">
 <meta name=author content="Yan Uehara">
-<meta name=description content="Software Engineer - Backend at Mercado Bitcoin">
-<link rel=alternate hreflang=en-us href=https://yanuehara.dev/publication/>
+<meta name=description content="Autenticação e autorização em Go para além do JWT: access tokens, OAuth2, OIDC, boas práticas e um estudo de caso em escala.">
+<link rel=alternate hreflang=en-us href=https://yanuehara.dev/talk/autenticacao-e-autorizacao-em-go-alem-do-jwt/>
 <meta name=theme-color content="#1565c0">
 <script src=/js/mathjax-config.js></script>
 <link rel=stylesheet href=/css/vendor-bundle.min.f1ecf783c14edc00c9320c205831ad8e.css media=print onload="this.media='all'">
@@ -18,22 +18,23 @@
 <link rel=stylesheet href=https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/styles/dracula.min.css crossorigin=anonymous title=hl-dark media=print onload="this.media='all'" disabled>
 <script src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js integrity crossorigin=anonymous async></script>
 <link rel=stylesheet href=/css/wowchemy.7fa18a541b489204d14a3f8fd75bb3b5.css>
-<link rel=alternate href=/publication/index.xml type=application/rss+xml title="Yan Uehara">
 <link rel=manifest href=/manifest.webmanifest>
 <link rel=icon type=image/png href=/media/icon_hu05798da5833095988f190093553a38f3_1610_32x32_fill_lanczos_center_3.png>
 <link rel=apple-touch-icon type=image/png href=/media/icon_hu05798da5833095988f190093553a38f3_1610_180x180_fill_lanczos_center_3.png>
-<link rel=canonical href=https://yanuehara.dev/publication/>
+<link rel=canonical href=https://yanuehara.dev/talk/autenticacao-e-autorizacao-em-go-alem-do-jwt/>
 <meta property="twitter:card" content="summary">
 <meta property="og:site_name" content="Yan Uehara">
-<meta property="og:url" content="https://yanuehara.dev/publication/">
-<meta property="og:title" content="Publications | Yan Uehara">
-<meta property="og:description" content="Software Engineer - Backend at Mercado Bitcoin"><meta property="og:image" content="https://yanuehara.dev/media/icon_hu05798da5833095988f190093553a38f3_1610_512x512_fill_lanczos_center_3.png">
+<meta property="og:url" content="https://yanuehara.dev/talk/autenticacao-e-autorizacao-em-go-alem-do-jwt/">
+<meta property="og:title" content="Autenticação e Autorização em Go além do JWT | Yan Uehara">
+<meta property="og:description" content="Autenticação e autorização em Go para além do JWT: access tokens, OAuth2, OIDC, boas práticas e um estudo de caso em escala."><meta property="og:image" content="https://yanuehara.dev/media/icon_hu05798da5833095988f190093553a38f3_1610_512x512_fill_lanczos_center_3.png">
 <meta property="twitter:image" content="https://yanuehara.dev/media/icon_hu05798da5833095988f190093553a38f3_1610_512x512_fill_lanczos_center_3.png"><meta property="og:locale" content="en-us">
-<meta property="og:updated_time" content="2022-05-23T00:00:00+00:00">
+<meta property="article:published_time" content="2026-09-08T00:00:00-03:00">
+<meta property="article:modified_time" content="2026-09-03T13:00:00-03:00">
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"Event","mainEntityOfPage":{"@type":"WebPage","@id":"https://yanuehara.dev/talk/autenticacao-e-autorizacao-em-go-alem-do-jwt/"},"name":"Autenticação e Autorização em Go além do JWT","location":{"@type":"Place","name":"Florianópolis, Brasil","address":{"@type":"PostalAddress","streetAddress":"","addressLocality":"Florianópolis","postalCode":"","addressRegion":"SC","addressCountry":"Brasil"}},"startDate":"2026-09-03T13:00:00-03:00","performer":{"@type":"Person","name":"Yan Uehara"},"description":"Autenticação e autorização em Go para além do JWT: access tokens, OAuth2, OIDC, boas práticas e um estudo de caso em escala."}</script>
 <script async defer src=https://yanuehara.dev/cdn-cgi/zaraz/i.js></script>
-<title>Publications | Yan Uehara</title>
+<title>Autenticação e Autorização em Go além do JWT | Yan Uehara</title>
 </head>
-<body id=top data-spy=scroll data-offset=70 data-target=#TableOfContents class=page-wrapper data-wc-page-id=3a079e7dad19be978a318345a7749d34>
+<body id=top data-spy=scroll data-offset=70 data-target=#TableOfContents class=page-wrapper data-wc-page-id=406da754b1bf75ddf16f687bc07f4a54>
 <script src=/js/wowchemy-init.min.2da3b1fa37e894630bf6de39b1b694b3.js></script>
 <aside class=search-modal id=search>
 <div class=container>
@@ -115,159 +116,114 @@
 </nav>
 </div>
 <div class=page-body>
-<div class="universal-wrapper pt-3">
-<h1>Publications</h1>
-</div>
-<div class=universal-wrapper>
-<div class=row>
-<div class=col-lg-12>
-<div class="form-row mb-4">
-<div class=col-auto>
-<input type=search class="filter-search form-control form-control-sm" placeholder=Search... autocapitalize=off autocomplete=off autocorrect=off role=textbox spellcheck=false>
-</div>
-<div class=col-auto>
-<select class="pub-filters pubtype-select form-control form-control-sm" data-filter-group=pubtype><option value=*>Type</option><option value=.pubtype-1>
-Conference paper
-</option><option value=.pubtype-7>
-Thesis
-</option></select>
-</div>
-<div class=col-auto>
-<select class="pub-filters form-control form-control-sm" data-filter-group=year><option value=*>Date</option><option value=.year-2022>
-2022
-</option><option value=.year-2021>
-2021
-</option><option value=.year-2020>
-2020
-</option></select>
-</div>
-</div>
-<div id=container-publications>
-<div class="grid-sizer col-lg-12 isotope-item pubtype-1 year-2022">
-<div class=pub-list-item style=margin-bottom:1rem>
-<i class="far fa-file-alt pub-icon" aria-hidden=true></i>
-<span class="article-metadata li-cite-author">
-<span class=author-highlighted>
-<a href=/authors/yan-uehara-de-moraes/>Yan Uehara</a></span>, <span>
-<a href=/authors/carlos-pedroso/>Carlos Pedroso</a></span>, <span>
-<a href=/authors/jose-nogueira/>José Nogueira</a></span>, <span>
-<a href=/authors/aldri-santos/>Aldri Santos</a></span>
-</span>
-(2022).
-<a href=/publication/sbrc/>Gerência de Autenticação de Dispositivos IoT Adaptativa Aos Ambientes Urbanos Apoiada em Políticas e Confiança Social</a>.
-<em>Anais do XL Simpósio Brasileiro de Redes de Computadores e Sistemas Distribuídos</em>.
-<p>
-<a href=# class="btn btn-outline-primary btn-page-header btn-sm js-cite-modal" data-filename=/publication/sbrc/cite.bib>
-Cite
-</a>
-<a class="btn btn-outline-primary btn-page-header btn-sm" href=/project/galena/>
-Project
-</a>
-<a class="btn btn-outline-primary btn-page-header btn-sm" href=https://doi.org/10.5753/sbrc.2022.221966 target=_blank rel=noopener>
-DOI
-</a>
-<a class="btn btn-outline-primary btn-page-header btn-sm" href=https://sol.sbc.org.br/index.php/sbrc/article/view/21163 target=_blank rel=noopener>
-URL</a>
-</p>
-</div>
-</div>
-<div class="grid-sizer col-lg-12 isotope-item pubtype-7 year-2022">
-<div class=pub-list-item style=margin-bottom:1rem>
-<i class="far fa-file-alt pub-icon" aria-hidden=true></i>
-<span class="article-metadata li-cite-author">
+<div class=pub>
+<div class="article-container pt-3">
+<h1>Autenticação e Autorização em Go além do JWT</h1>
+<div class=article-metadata>
+<div>
 <span class=author-highlighted>
 <a href=/authors/yan-uehara-de-moraes/>Yan Uehara</a></span>
-</span>
-(2022).
-<a href=/publication/galena-2022/>Gerenciamento e proteção do serviço de autenticação adaptativa social para ambientes IoT contra ataques de difamação</a>.
-<p>
-<a href=# class="btn btn-outline-primary btn-page-header btn-sm js-cite-modal" data-filename=/publication/galena-2022/cite.bib>
-Cite
-</a>
-<a class="btn btn-outline-primary btn-page-header btn-sm" href=/project/galena/>
-Project
-</a>
-<a class="btn btn-outline-primary btn-page-header btn-sm" href=https://acervodigital.ufpr.br/handle/1884/77460 target=_blank rel=noopener>
-URL</a>
-</p>
 </div>
 </div>
-<div class="grid-sizer col-lg-12 isotope-item pubtype-1 year-2021">
-<div class=pub-list-item style=margin-bottom:1rem>
-<i class="far fa-file-alt pub-icon" aria-hidden=true></i>
-<span class="article-metadata li-cite-author">
-<span>
-<a href=/authors/carlos-pedroso/>Carlos Pedroso</a></span>, <span class=author-highlighted>
-<a href=/authors/yan-uehara-de-moraes/>Yan Uehara</a></span>, <span>
-<a href=/authors/michele-nogueira/>Michele Nogueira</a></span>, <span>
-<a href=/authors/aldri-santos/>Aldri Santos</a></span>
-</span>
-(2021).
-<a href=/publication/pedroso-2021-relational/>Relational Consensus-Based Cooperative Task Allocation Management for IIoT-Health Networks</a>.
-<em>2021 IFIP/IEEE International Symposium on Integrated Network Management (IM)</em>.
-<p>
-<a class="btn btn-outline-primary btn-page-header btn-sm" href=https://arxiv.org/abs/2102.01020 target=_blank rel=noopener>
+<div class="btn-links mb-3">
+<a class="btn btn-outline-primary btn-page-header" href=/auth-go-alem-do-jwt.pdf target=_blank rel=noopener>
 PDF
 </a>
-<a href=# class="btn btn-outline-primary btn-page-header btn-sm js-cite-modal" data-filename=/publication/pedroso-2021-relational/cite.bib>
-Cite
+<a class="btn btn-outline-primary btn-page-header" href=https://github.com/yanuehara-mb/gophercon-2026 target=_blank rel=noopener>
+Code
 </a>
-</p>
 </div>
 </div>
-<div class="grid-sizer col-lg-12 isotope-item pubtype-1 year-2020">
-<div class=pub-list-item style=margin-bottom:1rem>
-<i class="far fa-file-alt pub-icon" aria-hidden=true></i>
-<span class="article-metadata li-cite-author">
-<span>
-<a href=/authors/carlos-pedroso/>Carlos Pedroso</a></span>, <span class=author-highlighted>
-<a href=/authors/yan-uehara-de-moraes/>Yan Uehara</a></span>, <span>
-<a href=/authors/michele-nogueira/>Michele Nogueira</a></span>, <span>
-<a href=/authors/aldri-santos/>Aldri Santos</a></span>
-</span>
-(2020).
-<a href=/publication/pedroso-junior-2020/>Atribuições Cooperativas de Tarefas de Sensoriamento Baseada em Consenso Relacional para Redes IIoT</a>.
-<em>Anais do XXV Workshop de Gerência e Operação de Redes e Serviços (WGRS 2020)</em>.
-<p>
-<a class="btn btn-outline-primary btn-page-header btn-sm" href=https://doi.org/10.5753/wgrs.2020.12461 target=_blank rel=noopener>
-PDF
-</a>
-<a href=# class="btn btn-outline-primary btn-page-header btn-sm js-cite-modal" data-filename=/publication/pedroso-junior-2020/cite.bib>
-Cite
-</a>
-<a class="btn btn-outline-primary btn-page-header btn-sm" href=https://doi.org/10.5753/wgrs.2020.12461 target=_blank rel=noopener>
-DOI
-</a>
-</p>
-</div>
-</div>
-<div class="grid-sizer col-lg-12 isotope-item pubtype-1 year-2020">
-<div class=pub-list-item style=margin-bottom:1rem>
-<i class="far fa-file-alt pub-icon" aria-hidden=true></i>
-<span class="article-metadata li-cite-author">
-<span>
-<a href=/authors/carlos-pedroso/>Carlos Pedroso</a></span>, <span class=author-highlighted>
-<a href=/authors/yan-uehara-de-moraes/>Yan Uehara</a></span>, <span>
-<a href=/authors/michele-nogueira/>Michele Nogueira</a></span>, <span>
-<a href=/authors/aldri-santos/>Aldri Santos</a></span>
-</span>
-(2020).
-<a href=/publication/pedroso-2020/>Managing Consensus-Based Cooperative Task Allocation for IIoT Networks</a>.
-<em>2020 IEEE Symposium on Computers and Communications (ISCC)</em>.
-<p>
-<a class="btn btn-outline-primary btn-page-header btn-sm" href=https://doi.org/10.1109/iscc50000.2020.9219635 target=_blank rel=noopener>
-PDF
-</a>
-<a href=# class="btn btn-outline-primary btn-page-header btn-sm js-cite-modal" data-filename=/publication/pedroso-2020/cite.bib>
-Cite
-</a>
-<a class="btn btn-outline-primary btn-page-header btn-sm" href=https://doi.org/10.1109/iscc50000.2020.9219635 target=_blank rel=noopener>
-DOI
-</a>
-</p>
+<div class=article-container>
+<h3>Abstract</h3>
+<p class=pub-abstract>JWT virou quase sinônimo de segurança de API, mas na prática ele é só uma peça de um quadro bem maior. Nesta talk eu volto ao básico do que significam autenticação e autorização, mostro a diferença entre um access token opaco e um JWT, e como o OAuth2 e o OpenID Connect organizam esse mundo — papéis, grants e endpoints — de forma padronizada. Também comento algumas boas práticas que fui aprendendo no caminho, como o velho conselho de &ldquo;don&rsquo;t roll your own authentication&rdquo; e o uso de soluções já consolidadas (Keycloak, Ory Hydra, Auth0). Para fechar, compartilho um estudo de caso real: a migração de um monólito para microsserviços de identidade em Go, a arquitetura por trás disso e os números em escala — centenas de milhares de tokens gerados e dezenas de milhões de introspecções e checagens de permissão por dia.</p>
+<div class=row>
+<div class=col-md-1></div>
+<div class=col-md-10>
+<div class=row>
+<div class="col-12 col-md-3 pub-row-heading">Date</div>
+<div class="col-12 col-md-9">
+Sep 3, 2026
 </div>
 </div>
 </div>
+<div class=col-md-1></div>
+</div>
+<div class="d-md-none space-below"></div>
+<div class=row>
+<div class=col-md-1></div>
+<div class=col-md-10>
+<div class=row>
+<div class="col-12 col-md-3 pub-row-heading">Event</div>
+<div class="col-12 col-md-9">
+<a href=https://gopherconlatam.org/ target=_blank rel=noopener>
+GopherCon LATAM 2026
+</a>
+</div>
+</div>
+</div>
+<div class=col-md-1></div>
+</div>
+<div class="d-md-none space-below"></div>
+<div class=row>
+<div class=col-md-1></div>
+<div class=col-md-10>
+<div class=row>
+<div class="col-12 col-md-3 pub-row-heading">Location</div>
+<div class="col-12 col-md-9">Florianópolis, Brasil</div>
+<div class=col-md-3></div>
+<div class="col-12 col-md-9">Florianópolis, SC </div>
+</div>
+</div>
+<div class=col-md-1></div>
+</div>
+<div class="d-md-none space-below"></div>
+<div class=space-below></div>
+<div class=article-style>
+</div>
+<div class=article-tags>
+<a class="badge badge-light" href=/tag/go/>go</a>
+<a class="badge badge-light" href=/tag/gophercon/>gophercon</a>
+</div>
+<div class=share-box>
+<ul class=share>
+<li>
+<a href="mailto:?subject=Autentica%c3%a7%c3%a3o%20e%20Autoriza%c3%a7%c3%a3o%20em%20Go%20al%c3%a9m%20do%20JWT&body=https://yanuehara.dev/talk/autenticacao-e-autorizacao-em-go-alem-do-jwt/" target=_blank rel=noopener class=share-btn-email aria-label=envelope>
+<i class="fas fa-envelope"></i>
+</a>
+</li>
+<li>
+<a href="https://twitter.com/intent/tweet?url=https://yanuehara.dev/talk/autenticacao-e-autorizacao-em-go-alem-do-jwt/&text=Autentica%c3%a7%c3%a3o%20e%20Autoriza%c3%a7%c3%a3o%20em%20Go%20al%c3%a9m%20do%20JWT" target=_blank rel=noopener class=share-btn-twitter aria-label=twitter>
+<i class="fab fa-twitter"></i>
+</a>
+</li>
+<li>
+<a href="https://www.linkedin.com/shareArticle?url=https://yanuehara.dev/talk/autenticacao-e-autorizacao-em-go-alem-do-jwt/&title=Autentica%c3%a7%c3%a3o%20e%20Autoriza%c3%a7%c3%a3o%20em%20Go%20al%c3%a9m%20do%20JWT" target=_blank rel=noopener class=share-btn-linkedin aria-label=linkedin-in>
+<i class="fab fa-linkedin-in"></i>
+</a>
+</li>
+</ul>
+</div>
+<div class="media author-card content-widget-hr">
+<a href=https://yanuehara.dev><img class="avatar mr-3 avatar-circle" src=/authors/yan-uehara-de-moraes/avatar_hu504a462397efcea0c3e0740ecc012cff_12065_270x270_fill_q75_lanczos_center.jpg alt="Yan Uehara"></a>
+<div class=media-body>
+<h5 class=card-title><a href=https://yanuehara.dev>Yan Uehara</a></h5>
+<h6 class=card-subtitle>Software Engineer - Backend at Mercado Bitcoin</h6>
+<ul class=network-icon aria-hidden=true>
+<li>
+<a href=/#contact>
+<i class="fas fa-envelope"></i>
+</a>
+</li>
+</ul>
+</div>
+</div>
+<script src=https://utteranc.es/client.js repo=yanuehara/yanuehara.github.io-comments issue-term=title theme=preferred-color-scheme crossorigin=anonymous async></script>
+<div class="article-widget content-widget-hr">
+<h3>Related</h3>
+<ul>
+<li><a href=/post/gophercon-brazil-2024/>GopherCon Brazil 2024</a></li>
+</ul>
 </div>
 </div>
 </div>
